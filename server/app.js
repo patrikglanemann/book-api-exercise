@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -77,11 +78,11 @@ app.patch("/books/:id", function (req, res) {
   Book.findByIdAndUpdate(req.params.id, req.body, { new: true })
     .then((updatedBook) => {
       if (updatedBook) {
-        console.log("Article updated");
+        console.log("Book updated");
         res.status(200).send(updatedBook);
       } else {
-        console.log("Article not found, hence couldn't be updated");
-        res.status(404).send("404 Article not found");
+        console.log("Book not found, hence couldn't be updated");
+        res.status(404).send("404 Book not found");
       }
     })
     .catch(() => {
@@ -128,8 +129,11 @@ app.post("/authors", (req, res) => {
   We have to start the server. We make it listen on the port 4000
 
 */
+
+const { MONGO_URL } = process.env;
+
 mongoose
-  .connect("mongodb://localhost:27017/books-api", {
+  .connect(MONGO_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useFindAndModify: false,
