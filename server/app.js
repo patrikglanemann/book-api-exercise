@@ -130,7 +130,7 @@ app.post("/authors", (req, res) => {
 
 */
 
-const { MONGO_URL } = process.env;
+const { MONGO_URL, PORT } = process.env;
 
 mongoose
   .connect(MONGO_URL, {
@@ -140,7 +140,7 @@ mongoose
   })
   .then(() => {
     console.log("Connected to mongo");
-    app.listen(4000, () => {
+    app.listen(PORT, () => {
       console.log("Listening on http://localhost:4000");
     });
   })
